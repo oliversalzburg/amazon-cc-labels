@@ -1,3 +1,8 @@
+// ==ClosureCompiler==
+// @output_file_name amazon-cc-labels.min.user.js
+// @compilation_level ADVANCED_OPTIMIZATIONS
+// ==/ClosureCompiler==
+
 // ==UserScript==
 // @name         Amazon CC Labels
 // @namespace    http://github.com/oliversalzburg
@@ -12,20 +17,29 @@
 // ==/UserScript==
 
 (function() {
-	function Storage( prefix ) {
+	/**
+	 * Convenience wrapper around localStorage.
+	 * @param {string} prefix The prefix to apply to stored items.
+	 * @constructor
+	 */
+	function LocalStorage( prefix ) {
 		this.storagePrefix = prefix + "-";
 	}
 
-	Storage.prototype.getItem = function( key ) {
+	LocalStorage.prototype.getItem = function LocalStorage$getItem( key ) {
 		return localStorage.getItem( this.storagePrefix + key );
 	};
 
-	Storage.prototype.setItem = function( key, value ) {
+	LocalStorage.prototype.setItem = function LocalStorage$setItem( key, value ) {
 		localStorage.setItem( this.storagePrefix + key, value );
 	};
 
+	/**
+	 * The main application.
+	 * @constructor
+	 */
 	function AmazonCcLabels() {
-		this.storage = new Storage( "amazon-cc-labels" );
+		this.storage = new LocalStorage( "amazon-cc-labels" );
 	}
 
 	AmazonCcLabels.prototype.initialize = function AmazonCcLabels$initialize() {
